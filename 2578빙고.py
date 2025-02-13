@@ -16,18 +16,16 @@ bingo = [[11, 12, 2, 24, 10], [16, 1, 13, 3, 25],
 num = []
 for _ in range(5):
     lst = list(map(int, input().split()))
-    num.append(lst)
+    num.extend(lst)
 print(num)
 '''
 num = [5, 10, 7, 16, 2, 4, 22, 8, 17, 13, 
        3, 18, 1, 6, 25, 12, 19, 23, 14, 21, 
        11, 24, 9, 20, 15]
 
-# 선의 개수
-cnt = 0
 
 def make_line(bingo):
-    
+    # 선의 개수    
     cnt = 0 
     
     # 가로선 확인
@@ -52,16 +50,19 @@ def make_line(bingo):
         
     
 # 사회자가 부르는 수를 차례로 확인하며 빙고 체크
-idx = 0
-while idx < len(num):
-    n = num[idx]
-    idx += 1  # 몇 번째 숫자인지 직접 관리
-
-    for i in range(5):
-        if n in bingo[i]:  # 숫자가 있으면
-            j = bingo[i].index(n)
-            bingo[i][j] = 0  # 0으로 변경
-
-            if make_line(bingo) >= 3:  # 빙고 3줄 이상이면 종료
-                print(idx)  # 몇 번째 숫자에서 빙고가 완성되는지 출력
-                exit()
+for n in num: 
+    # 현재 부르는 수를 빙고판에서 찾고 0으로 바꾸기 
+    for x in range(5):
+        if n in bingo[x] :
+            idx = bingo[x].index(n)
+            bingo[x][idx] = 0 
+            
+            # 줄이 그어지는지 확인하기 
+            cnt = make_line(bingo)
+            
+            # 줄이 세 개가 된 순간 빙고 
+            if cnt == 3:
+                # 현재 불린 수의 순서 출력하기  
+                now = num.index(n) + 1
+                print(now)
+                exit()            
