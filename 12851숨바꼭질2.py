@@ -32,3 +32,4 @@ min_time, num_ways = bfs(N, K)
 # 출력
 print(min_time)
 print(num_ways)
+2
